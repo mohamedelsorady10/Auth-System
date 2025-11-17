@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { AuthResponse, SignupData, SigninData, User } from '../types';
+import type { AuthResponse, SignupData, SigninData, User, Restaurant } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
@@ -56,6 +56,25 @@ export const authService = {
 
   getProfile: async (): Promise<{ message: string; user: User }> => {
     const response = await api.get('/auth/profile');
+    return response.data;
+  },
+};
+
+export const restaurantService = {
+  search: async (query: string): Promise<{ restaurants: Restaurant[] }> => {
+    const response = await api.get<{ restaurants: Restaurant[] }>('/restaurants/search', {
+      params: { query },
+    });
+    return response.data;
+  },
+
+  getAll: async (): Promise<{ restaurants: Restaurant[] }> => {
+    const response = await api.get<{ restaurants: Restaurant[] }>('/restaurants');
+    return response.data;
+  },
+
+  getById: async (id: string): Promise<{ restaurant: Restaurant }> => {
+    const response = await api.get<{ restaurant: Restaurant }>(`/restaurants/${id}`);
     return response.data;
   },
 };

@@ -26,3 +26,26 @@ export interface ApiError {
   timestamp: string;
   path: string;
 }
+
+export interface Grade {
+  date: string;
+  grade: string;
+  score: number;
+}
+
+export interface Address {
+  building: string;
+  coord: [number, number];
+  street: string;
+  zipcode: string;
+}
+
+export interface Restaurant {
+  _id?: string;
+  name: string;
+  restaurant_id: string;
+  borough: string;
+  cuisine: string;
+  address: Address;
+  grades: Grade[];
+}
